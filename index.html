@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kairos Proposal — adonnet様 オリパシステム連携開発のご提案</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy: #0B1226;
+    --navy-2: #121B36;
+    --purple: #6C4AB6;
+    --gold: #D4AF37;
+    --emerald: #2BBFA0;
+    --paper: #F2F0E9;
+    --grey: #9BA3B4;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background: var(--navy);
+    color: var(--paper);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  h1,h2,h3,h4{
+    font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap{
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 80px 0 60px;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(108,74,182,0.35), transparent 45%),
+      radial-gradient(circle at 85% 75%, rgba(43,191,160,0.25), transparent 50%),
+      linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 100%);
+    overflow: hidden;
+  }
+
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      repeating-linear-gradient(115deg, rgba(212,175,55,0.04) 0px, rgba(212,175,55,0.04) 1px, transparent 1px, transparent 60px);
+    pointer-events:none;
+  }
+
+  .hero-grid{
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 48px;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+  }
+
+  .label-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    border: 1px solid rgba(212,175,55,0.4);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 28px;
+  }
+  .label-tag::before{
+    content:"";
+    width:6px; height:6px;
+    border-radius:50%;
+    background: var(--emerald);
+    box-shadow: 0 0 8px var(--emerald);
+  }
+
+  .hero h1{
+    font-size: clamp(32px, 5vw, 54px);
+    line-height: 1.35;
+    color: var(--paper);
+    margin-bottom: 22px;
+  }
+  .hero h1 em{
+    font-style: normal;
+    background: linear-gradient(90deg, var(--gold), #f0dca0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero p.sub{
+    font-size: 16px;
+    color: var(--grey);
+    line-height: 1.9;
+    max-width: 520px;
+    margin-bottom: 36px;
+  }
+
+  .hero .meta{
+    display:flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: var(--grey);
+  }
+  .hero .meta b{ color: var(--paper); font-weight:500; display:block; font-size:15px;}
+
+  /* pack card visual */
+  .pack{
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 3/4.2;
+    margin: 0 auto;
+    border-radius: 18px;
+    background:
+      conic-gradient(from 180deg at 50% 50%, #6C4AB6, #2BBFA0, #D4AF37, #6C4AB6);
+    animation: spin 14s linear infinite;
+    padding: 3px;
+  }
+  @keyframes spin{ to{ filter: hue-rotate(360deg);} }
+
+  .pack-inner{
+    width:100%; height:100%;
+    border-radius: 16px;
+    background: linear-gradient(160deg, #121B36 0%, #0B1226 70%);
+    position: relative;
+    overflow: hidden;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px;
+  }
+
+  .pack-inner::after{
+    content:"";
+    position:absolute;
+    top:-50%; left:-20%;
+    width: 60%; height: 200%;
+    background: linear-gradient(100deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%);
+    animation: shine 4s ease-in-out infinite;
+  }
+  @keyframes shine{
+    0%{ transform: translateX(-120%); }
+    60%{ transform: translateX(260%); }
+    100%{ transform: translateX(260%); }
+  }
+
+  .pack-top{
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+  }
+  .pack-mid{
+    text-align: center;
+  }
+  .pack-mid .num{
+    font-family:'Space Grotesk';
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--paper);
+  }
+  .pack-mid .cap{
+    font-size: 11px;
+    color: var(--grey);
+    letter-spacing: 0.1em;
+  }
+  .pack-bottom{
+    display:flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--grey);
+    letter-spacing: 0.08em;
+  }
+
+  /* ===== SECTION COMMON ===== */
+  section{
+    padding: 100px 0;
+    position: relative;
+  }
+  .sec-head{
+    margin-bottom: 56px;
+  }
+  .sec-head .tag{
+    font-size: 12px;
+    color: var(--emerald);
+    letter-spacing: 0.2em;
+    margin-bottom: 14px;
+    display:block;
+  }
+  .sec-head h2{
+    font-size: clamp(26px, 3.6vw, 38px);
+    color: var(--paper);
+    line-height: 1.5;
+  }
+  .sec-head p{
+    color: var(--grey);
+    margin-top: 14px;
+    max-width: 620px;
+    line-height: 1.9;
+    font-size: 15px;
+  }
+
+  /* understanding */
+  .understand{
+    background: var(--navy-2);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .understand-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+  .u-card{
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-left: 3px solid var(--purple);
+    border-radius: 6px;
+    padding: 26px 28px;
+  }
+  .u-card h3{
+    font-size: 15px;
+    color: var(--gold);
+    margin-bottom: 10px;
+    letter-spacing: 0.03em;
+  }
+  .u-card p{
+    font-size: 14px;
+    color: var(--grey);
+    line-height: 1.85;
+  }
+
+  /* values */
+  .value-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .v-card{
+    background: linear-gradient(160deg, rgba(108,74,182,0.08), rgba(43,191,160,0.04));
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 30px 26px;
+    position: relative;
+    transition: transform .25s ease, border-color .25s ease;
+  }
+  .v-card:hover{
+    transform: translateY(-6px);
+    border-color: rgba(212,175,55,0.5);
+  }
+  .v-card .vnum{
+    font-family:'Space Grotesk';
+    font-size: 13px;
+    color: var(--emerald);
+    letter-spacing: 0.15em;
+    margin-bottom: 16px;
+    display:block;
+  }
+  .v-card h3{
+    font-size: 17px;
+    color: var(--paper);
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  .v-card p{
+    font-size: 13.5px;
+    color: var(--grey);
+    line-height: 1.85;
+  }
+  .v-card.wide{ grid-column: span 1; }
+
+  /* schedule */
+  .schedule{
+    background: var(--navy-2);
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .timeline{
+    position: relative;
+    padding-left: 28px;
+    border-left: 2px solid rgba(212,175,55,0.3);
+  }
+  .t-step{
+    position: relative;
+    padding-bottom: 42px;
+  }
+  .t-step:last-child{ padding-bottom: 0; }
+  .t-step::before{
+    content:"";
+    position:absolute;
+    left: -34px;
+    top: 4px;
+    width: 14px; height:14px;
+    border-radius:50%;
+    background: var(--navy-2);
+    border: 2px solid var(--gold);
+  }
+  .t-step .t-label{
+    font-size: 12px;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    margin-bottom: 6px;
+  }
+  .t-step h4{
+    font-size: 17px;
+    color: var(--paper);
+    margin-bottom: 8px;
+  }
+  .t-step p{
+    font-size: 14px;
+    color: var(--grey);
+    line-height: 1.85;
+    max-width: 640px;
+  }
+
+  /* closing */
+  .closing{
+    text-align: center;
+    padding: 120px 0 100px;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(43,191,160,0.18), transparent 55%),
+      var(--navy);
+  }
+  .closing h2{
+    font-size: clamp(26px, 4vw, 40px);
+    color: var(--paper);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  .closing p{
+    color: var(--grey);
+    max-width: 560px;
+    margin: 0 auto 40px;
+    line-height: 1.9;
+    font-size: 15px;
+  }
+  .cta-btn{
+    display:inline-block;
+    padding: 18px 48px;
+    background: linear-gradient(90deg, var(--gold), #e9cf7a);
+    color: var(--navy);
+    font-weight: 700;
+    border-radius: 999px;
+    font-size: 15px;
+    letter-spacing: 0.04em;
+    box-shadow: 0 10px 30px rgba(212,175,55,0.25);
+    transition: transform .2s ease;
+  }
+  .cta-btn:hover{ transform: translateY(-3px); }
+
+  footer{
+    text-align:center;
+    padding: 30px 0;
+    font-size: 12px;
+    color: var(--grey);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 860px){
+    .hero-grid{ grid-template-columns: 1fr; }
+    .understand-grid{ grid-template-columns: 1fr; }
+    .value-grid{ grid-template-columns: repeat(2,1fr); }
+    .pack{ max-width: 260px; }
+  }
+  @media (max-width: 560px){
+    section{ padding: 70px 0; }
+    .value-grid{ grid-template-columns: 1fr; }
+    .hero{ padding-top: 110px; }
+    .hero .meta{ gap:18px; }
+    .timeline{ padding-left: 22px; }
+    .t-step::before{ left: -28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="label-tag">KAIROS PROPOSAL FOR ADONNET</span>
+      <h1>開封の一瞬を、<br><em>崩れない基盤</em>で支える。</h1>
+      <p class="sub">
+        オンラインオリパサービスの新しいユーザー画面・管理画面と、既存ブラウザシステムをつなぐ開発について、
+        Kairosよりご提案いたします。抽選・在庫・残高という「見えない正確さ」を、継続して守り続けるパートナーを目指します。
+      </p>
+      <div class="meta">
+        <div><b>50万〜100万円</b>初回開発予算</div>
+        <div><b>API連携 / 認証 / 抽選 / 在庫</b>対応領域</div>
+        <div><b>継続保守</b>完成後も伴走</div>
+      </div>
+    </div>
+    <div>
+      <div class="pack">
+        <div class="pack-inner">
+          <div class="pack-top">LOT #0427 — SECURED</div>
+          <div class="pack-mid">
+            <div class="num">1 / 1</div>
+            <div class="cap">GUARANTEED NO DUPLICATE</div>
+          </div>
+          <div class="pack-bottom">
+            <span>AUTH ✓</span>
+            <span>STOCK ✓</span>
+            <span>LOG ✓</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== UNDERSTANDING ===== -->
+<section class="understand">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="tag">UNDERSTANDING / 拝見した仕様から</span>
+      <h2>「新しい画面」と「既存の心臓部」を、<br>無理なくつなぐことが本質だと理解しています。</h2>
+      <p>
+        HTML/CSS/JS・画像・仕様書・テストコードまで揃えていただいている状況から、デザインや体験設計は既に固まっており、
+        今回の核心は<strong>サーバーサイドでの安全な接続</strong>にあると捉えています。
+      </p>
+    </div>
+    <div class="understand-grid">
+      <div class="u-card">
+        <h3>ブラウザ保存デモ → 本番接続への橋渡し</h3>
+        <p>現在ローカル保存で完結している操作を、既存会員DB・コイン残高・オリパ在庫と正しく同期させる必要があります。新画面側の仕様を壊さずに、裏側だけを本物に差し替える設計が求められています。</p>
+      </div>
+      <div class="u-card">
+        <h3>既存資産の再利用という明確な意思</h3>
+        <p>認証・決済・抽選・在庫処理を「作り直す」のではなく「可能な限り活かす」方針と理解しています。既存PHP/Laravel環境のAPIを棚卸しし、流用できる部分と新規実装が必要な部分を切り分けます。</p>
+      </div>
+      <div class="u-card">
+        <h3>オリパ特有のリスクへの警戒</h3>
+        <p>二重購入・二重付与・過売りは、ガチャ型サービスの信頼性を左右する最重要ポイントです。抽選と在庫更新の排他制御、トランザクション設計を最優先で検討すべき領域と捉えています。</p>
+      </div>
+      <div class="u-card">
+        <h3>一度きりでなく、続く関係への準備</h3>
+        <p>初回開発はゴールではなくスタートであり、ソースと変更履歴を共有しながら長期的に相談できるエンジニア体制を求めていると理解しています。保守体制まで含めてご提案します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VALUE ===== -->
+<section class="value">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="tag">WHAT KAIROS BRINGS / 提供できる価値</span>
+      <h2>見えない部分の正確さを、<br>チームとして担保します。</h2>
+      <p>単発の実装ではなく、既存環境の理解から継続保守までを一貫して担当できる体制をご用意します。</p>
+    </div>
+    <div class="value-grid">
+      <div class="v-card">
+        <span class="vnum">01</span>
+        <h3>既存API資産の棚卸しと再利用設計</h3>
+        <p>PHP/Laravel環境を精査し、既存の認証・決済・抽選・在庫APIのうち流用可能な処理を特定。再実装コストを最小化します。</p>
+      </div>
+      <div class="v-card">
+        <span class="vnum">02</span>
+        <h3>会員認証・コイン残高の安全な連携</h3>
+        <p>既存会員システムとのセッション・トークン連携を設計し、コインの取得・利用・更新を一貫性のあるトランザクションで処理します。</p>
+      </div>
+      <div class="v-card">
+        <span class="vnum">03</span>
+        <h3>抽選・在庫のロック機構</h3>
+        <p>同時アクセス時の二重購入・二重付与・過売りを防止する排他制御を実装。公平な抽選結果と正確な在庫数を両立させます。</p>
+      </div>
+      <div class="v-card">
+        <span class="vnum">04</span>
+        <h3>購入ログ基盤と管理画面エクスポート</h3>
+        <p>全購入履歴を追跡可能な形で記録し、管理画面からの閲覧・CSVエクスポートまで含めて実装。トラブル時の調査も容易にします。</p>
+      </div>
+      <div class="v-card">
+        <span class="vnum">05</span>
+        <h3>公開後も続く継続保守体制</h3>
+        <p>月次の保守契約・都度対応のどちらにも対応可能。ソースと変更履歴を都度共有し、長期的に相談できる関係を構築します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SCHEDULE ===== -->
+<section class="schedule">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="tag">PROCESS / 進め方のイメージ</span>
+      <h2>まず確認、そして確定。<br>手戻りのない進行を重視します。</h2>
+      <p>着手可能日・想定期間は、既存環境確認後に具体的な日数でご提示します。以下は一般的な進行イメージです。</p>
+    </div>
+    <div class="timeline">
+      <div class="t-step">
+        <div class="t-label">STEP 01 ・ 目安 3〜5営業日</div>
+        <h4>既存環境ヒアリング・API調査</h4>
+        <p>既存ブラウザシステムのソース・API有無・DB構成を確認し、再利用可能な処理と追加実装が必要な処理を切り分けます。</p>
+      </div>
+      <div class="t-step">
+        <div class="t-label">STEP 02</div>
+        <h4>連携設計・対応範囲と見積の確定</h4>
+        <p>予算内で対応可能な範囲、段階的に分ける場合の優先順位を整理し、作業範囲・納品条件を契約前に確定します。</p>
+      </div>
+      <div class="t-step">
+        <div class="t-label">STEP 03</div>
+        <h4>実装：認証・コイン・抽選・在庫・ログ</h4>
+        <p>テストコードを活用しながら、既存仕様書に沿って連携処理を実装。進捗は定期的に共有します。</p>
+      </div>
+      <div class="t-step">
+        <div class="t-label">STEP 04</div>
+        <h4>動作確認・ステージング検証</h4>
+        <p>二重購入・過売りなどの異常系も含めたテストを実施し、提供いただいたテストコードとの整合性を確認します。</p>
+      </div>
+      <div class="t-step">
+        <div class="t-label">STEP 05</div>
+        <h4>公開作業・導入手順の整理</h4>
+        <p>本番環境への反映、導入・更新手順をドキュメント化し、ソース一式・DB変更内容とあわせて納品します。</p>
+      </div>
+      <div class="t-step">
+        <div class="t-label">STEP 06</div>
+        <h4>継続保守へ移行</h4>
+        <p>公開後のアップデート・機能追加・不具合対応を、月額保守または都度対応にてご相談しながら継続します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CLOSING ===== -->
+<section class="closing">
+  <div class="wrap">
+    <h2>まずは仕様書を拝見したうえで、<br>対応範囲と見積りをご提示します。</h2>
+    <p>
+      自己紹介・関連実績・進め方・予算内での対応範囲・着手可能日・保守条件など、
+      ご指定の項目を揃えてご連絡いたします。まずは個別相談にてお話しさせてください。
+    </p>
+    <a href="#" class="cta-btn">Kairosに相談してみる</a>
+  </div>
+</section>
+
+<footer>
+  KAIROS — Web制作・システム開発チーム ／ Proposal for adonnet
+</footer>
+
+</body>
+</html>
